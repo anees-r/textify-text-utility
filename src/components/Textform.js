@@ -12,39 +12,27 @@ export default function Textform(props) {
   };
 
   const onUpperCase = () => {
-    if (text !== "") {
-      let upperCaseText = text.toUpperCase();
-      setText(upperCaseText);
-      props.displayAlert("Converted to Uppercase!", "success");
-    }
-    props.displayAlert("No text to process!", "warning");
+    let upperCaseText = text.toUpperCase();
+    setText(upperCaseText);
+    props.displayAlert("Converted to Uppercase!", "success");
   };
 
   const onLowerCase = () => {
-    if (text !== "") {
-      let lowerCaseText = text.toLowerCase();
-      setText(lowerCaseText);
-      props.displayAlert("Converted to Lowercase!", "success");
-    }
-    props.displayAlert("No text to process!", "warning");
+    let lowerCaseText = text.toLowerCase();
+    setText(lowerCaseText);
+    props.displayAlert("Converted to Lowercase!", "success");
   };
 
   const onRemoveSpaces = () => {
-    if (text !== "") {
-      let newText = text.split(/[ ]+/);
-      setText(newText.join(" "));
-      props.displayAlert("Removed extra spaces!", "success");
-    }
-    props.displayAlert("No text to process!", "warning");
+    let newText = text.split(/[ ]+/);
+    setText(newText.join(" "));
+    props.displayAlert("Removed extra spaces!", "success");
   };
 
   const onJsToJson = () => {
-    if (text !== "") {
-      let jsonText = JSON.stringify(text);
-      setText(jsonText);
-      props.displayAlert("Converted from JS to JSON!", "success");
-    }
-    props.displayAlert("No text to process!", "warning");
+    let jsonText = JSON.stringify(text);
+    setText(jsonText);
+    props.displayAlert("Converted from JS to JSON!", "success");
   };
 
   // EXAMPLE
@@ -54,29 +42,21 @@ export default function Textform(props) {
   // }
 
   const onJsonToJs = () => {
-    if (text !== "") {
-      let jsText = JSON.parse(text);
-      setText(jsText);
-      props.displayAlert("Converted JSON to JS!", "success");
-    }
-    props.displayAlert("No text to process!", "warning");
+    let jsText = JSON.parse(text);
+    setText(jsText);
+    props.displayAlert("Converted JSON to JS!", "success");
   };
 
   const onCopy = () => {
-    if (text !== "") {
-      document.getElementById("myTextArea").select();
-      navigator.clipboard.writeText(text);
-      props.displayAlert("Copied to your clipboard!", "success");
-    }
-    props.displayAlert("No text to process!", "warning");
+    document.getElementById("myTextArea").select();
+    navigator.clipboard.writeText(text);
+    props.displayAlert("Copied to your clipboard!", "success");
   };
 
   const onClear = () => {
-    if (text !== "") {
-      props.displayAlert("No text to process!", "warning");
-      setText("");
-      props.displayAlert("Text cleared!", "success");
-    }
+    props.displayAlert("No text to process!", "warning");
+    setText("");
+    props.displayAlert("Text cleared!", "success");
   };
 
   const [text, setText] = useState("");
@@ -111,28 +91,46 @@ export default function Textform(props) {
       >
         <p>
           Avg time to read:{" "}
-          {0.008 * text.split(" ").length < 1
+          {text === ""
+            ? "0"
+            : 0.008 * text.split(" ").length < 1
             ? "<1"
             : Math.round(0.008 * text.split(" ").length)}{" "}
           mins.
         </p>
         <p>
-          Words: {text === "" ? "0" : text.split(" ").length}, Letters:{" "}
-          {text.length}
+          Words:{" "}
+          {text === ""
+            ? "0"
+            : text.split(" ").filter((element) => {
+                return element.length !== 0;
+              }).length}
+          , Letters: {text.length}
         </p>
       </div>
 
       {/* buttons start here */}
       <div className="containter d-flex justify-content-center flex-wrap">
-        <button className={btnClasses} onClick={onUpperCase} style={btnStyles}>
+        <button
+          disabled={text.length === 0}
+          className={btnClasses}
+          onClick={onUpperCase}
+          style={btnStyles}
+        >
           Convert to Uppercase
         </button>
 
-        <button className={btnClasses} onClick={onLowerCase} style={btnStyles}>
+        <button
+          disabled={text.length === 0}
+          className={btnClasses}
+          onClick={onLowerCase}
+          style={btnStyles}
+        >
           Convert to Lowercase
         </button>
 
         <button
+          disabled={text.length === 0}
           className={btnClasses}
           onClick={onRemoveSpaces}
           style={btnStyles}
@@ -140,19 +138,39 @@ export default function Textform(props) {
           Remove Extra Spaces
         </button>
 
-        <button className={btnClasses} onClick={onJsToJson} style={btnStyles}>
+        <button
+          disabled={text.length === 0}
+          className={btnClasses}
+          onClick={onJsToJson}
+          style={btnStyles}
+        >
           JS to JSON
         </button>
 
-        <button className={btnClasses} onClick={onJsonToJs} style={btnStyles}>
+        <button
+          disabled={text.length === 0}
+          className={btnClasses}
+          onClick={onJsonToJs}
+          style={btnStyles}
+        >
           JSON to JS
         </button>
 
-        <button className={btnClasses} onClick={onCopy} style={btnStyles}>
+        <button
+          disabled={text.length === 0}
+          className={btnClasses}
+          onClick={onCopy}
+          style={btnStyles}
+        >
           Copy
         </button>
 
-        <button className={btnClasses} onClick={onClear} style={btnStyles}>
+        <button
+          disabled={text.length === 0}
+          className={btnClasses}
+          onClick={onClear}
+          style={btnStyles}
+        >
           Clear
         </button>
       </div>
