@@ -90,19 +90,20 @@ export default function Textform(props) {
         }}
       >
         <p>
+          {/* using regex in split method to remove all the blank spaces as well as the next lines */}
           Avg time to read:{" "}
           {text === ""
             ? "0"
-            : 0.008 * text.split(" ").length < 1
+            : 0.008 * text.split(/\s/).length < 1
             ? "<1"
-            : Math.round(0.008 * text.split(" ").length)}{" "}
-          mins.
+            : Math.round(0.008 * text.split(/\s/).length)}{" "}
+          min(s).
         </p>
         <p>
           Words:{" "}
           {text === ""
             ? "0"
-            : text.split(" ").filter((element) => {
+            : text.split(/\s/).filter((element) => {
                 return element.length !== 0;
               }).length}
           , Letters: {text.length}
