@@ -42,9 +42,14 @@ export default function Textform(props) {
   // }
 
   const onJsonToJs = () => {
-    let jsText = JSON.parse(text);
-    setText(jsText);
-    props.displayAlert("Converted JSON to JS!", "success");
+    let jsText;
+    try {
+      jsText = JSON.parse(text);
+      setText(jsText);
+      props.displayAlert("Converted JSON to JS!", "success");
+    } catch (e) {
+      props.displayAlert("Invalid JSON code!", "danger");
+    }
   };
 
   const onCopy = () => {
